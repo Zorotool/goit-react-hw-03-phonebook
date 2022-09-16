@@ -34,24 +34,12 @@ class App extends Component {
   };
 
   addContact = newContact => {
-    this.setState(prevState => {
-      let isContains = false;
-      let updateContacts = [];
-      prevState.contacts.forEach(({ name }) => {
-        if (name === newContact.name) {
-          alert(`${name} is already in contacts`);
-          isContains = true;
-        }
-      });
-      isContains
-        ? (updateContacts = [...prevState.contacts])
-        : (updateContacts = [...prevState.contacts, newContact]);
-      return {
-        contacts: updateContacts,
-        name: '',
-        number: '',
-      };
-    });
+    const { contacts } = this.state;
+    if (contacts.find(item => item.name === newContact.name)) {
+      alert(`${newContact.name} is allready in contacts. `);
+    } else {
+      this.setState({contacts:[...contacts, newContact]})
+    };
   };
 
   deleteContact = e => {
